@@ -16,7 +16,7 @@ namespace IBASEmployeeService.Controllers
 
 
         [HttpGet]
-        public async Task<Henvendelse> GetHenvendelse()
+        public async Task<Item> GetHenvendelse()
         {
             // CosmosClient should always be a singleton for an application
             using (CosmosClient cosmosClient = new CosmosClient("https://ibas-db-account-13892.documents.azure.com:443/", "RVuFTfQzdP2H7pPfM7d7Iu0rZ7S3OcdSEq5acb7BtauIZ86p8hmZgMvEGDIPFysYGPU05CAki3lYACDbV4SWaw=="))
@@ -24,10 +24,10 @@ namespace IBASEmployeeService.Controllers
                 Container container = cosmosClient.GetContainer("IBasSupportDB", "ibassupport");
                 
                 // Read item from container
-                ItemResponse<Henvendelse> response = await container.ReadItemAsync<Henvendelse>("0d6f8a79-f964-439e-a5b6-3f4cfd30f022", new PartitionKey("klage"));
+                ItemResponse<Item> response = await container.ReadItemAsync<Item>("0d6f8a79-f964-439e-a5b6-3f4cfd30f022", new PartitionKey("klage"));
                 System.Console.WriteLine(response);
-                Henvendelse henvendelse = response.Resource;
-                return henvendelse;
+                Item item = response.Resource;
+                return item;
             }
 
             /*var employees = new List<Employee>() {

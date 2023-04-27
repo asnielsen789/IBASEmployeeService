@@ -8,20 +8,17 @@ namespace IBASEmployeeService.Models
     /// </summary>
     public class Henvendelse
     {
-        /*[BsonId]
-        public string? Id { get; set; }*/
         public int HenvendelseId { get; set; }
-
         public Bruger Bruger { get; set; }
         public string Beskrivelse { get; set; }
+        public string Dato { get; set; }
 
-        public int Kategori { get; set; }
-
-        public DateTime Dato { get; set; }
-
-        public Henvendelse()
+        public Henvendelse(int henvendelseId, Bruger bruger, string beskrivelse, string dato)
         {
-
+            HenvendelseId = henvendelseId;
+            Bruger = bruger;
+            Beskrivelse = beskrivelse;
+            Dato = dato;
         }
 
     }
