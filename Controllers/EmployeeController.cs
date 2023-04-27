@@ -2,7 +2,8 @@ namespace IBASEmployeeService.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
     using IBASEmployeeService.Models;
-    
+    using Microsoft.Azure.Cosmos;
+
     [ApiController]
     [Route("[controller]")]
     public class EmployeeController : ControllerBase
@@ -14,10 +15,21 @@ namespace IBASEmployeeService.Controllers
         }
 
 
-        [HttpGet(Name = "GetEmployees")]
-        public IEnumerable<Employee> Get()
+        [HttpGet(Name = "GetHenvendelse")]
+        public async Task<Henvendelse> GetHenvendelse()
         {
-            var employees = new List<Employee>() {
+            // CosmosClient should always be a singleton for an application
+            using (CosmosClient cosmosClient = new CosmosClient("https://ibas-db-account-13892.documents.azure.com:443/", "RVuFTfQzdP2H7pPfM7d7Iu0rZ7S3OcdSEq5acb7BtauIZ86p8hmZgMvEGDIPFysYGPU05CAki3lYACDbV4SWaw=="))
+            {
+                Container container = cosmosClient.GetContainer("IBasSupportDB", "ibassupport");
+                
+                // Read item from container
+                ItemResponse<Henvendelse> response = await container.ReadItemAsync<Henvendelse>("ae9a06ce-bec4-425c-8d78-cd868da78df7", new PartitionKey("/category"));
+                Henvendelse henvendelse = response.Resource;
+                return henvendelse;
+            }
+
+            /*var employees = new List<Employee>() {
             new Employee() {
                 Id = "21",
                 Name = "Mette Bangsbo",
@@ -47,6 +59,7 @@ namespace IBASEmployeeService.Controllers
             }
         };
             return employees;
+            */
         }
     }
 
