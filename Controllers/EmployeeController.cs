@@ -24,7 +24,8 @@ namespace IBASEmployeeService.Controllers
                 Container container = cosmosClient.GetContainer("IBasSupportDB", "ibassupport");
                 
                 // Read item from container
-                ItemResponse<Henvendelse> response = await container.ReadItemAsync<Henvendelse>("ae9a06ce-bec4-425c-8d78-cd868da78df7", new PartitionKey("/category"));
+                ItemResponse<Henvendelse> response = await container.ReadItemAsync<Henvendelse>("ae9a06ce-bec4-425c-8d78-cd868da78df7", new PartitionKey("category"));
+                System.Console.WriteLine(response);
                 Henvendelse henvendelse = response.Resource;
                 return henvendelse;
             }
