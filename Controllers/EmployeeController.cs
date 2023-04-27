@@ -27,6 +27,7 @@ namespace IBASEmployeeService.Controllers
                 ItemResponse<Henvendelse> response = await container.ReadItemAsync<Henvendelse>("ae9a06ce-bec4-425c-8d78-cd868da78df7", new PartitionKey("/category"));
                 Henvendelse henvendelse = response.Resource;
                 return henvendelse;
+                System.Console.WriteLine("test");
             }
 
             /*var employees = new List<Employee>() {
