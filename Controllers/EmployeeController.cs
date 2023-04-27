@@ -15,7 +15,7 @@ namespace IBASEmployeeService.Controllers
         }
 
 
-        [HttpGet(Name = "GetHenvendelse")]
+        [HttpGet]
         public async Task<Henvendelse> GetHenvendelse()
         {
             // CosmosClient should always be a singleton for an application
